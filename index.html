@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#080f1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Health OS">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Vijay Health OS</title>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══════════ HEADER ══════════ -->
+  <header id="header">
+    <div class="hdr-top">
+      <div>
+        <div class="hdr-sub">VIJAY · HEALTH OS · AGE 40</div>
+        <h1 class="hdr-title">Daily Protocol</h1>
+        <div class="hdr-meta">95 kg → 80 kg &nbsp;·&nbsp; HbA1c 6.7% → 5.7%</div>
+      </div>
+      <div class="cal-box">
+        <div class="cal-num" id="calNum">0</div>
+        <div class="cal-lbl">kcal / 1800</div>
+      </div>
+    </div>
+    <div class="bar-bg"><div class="bar-fill" id="calBarFill"></div></div>
+    <nav class="tab-bar">
+      <button class="tab-btn active" data-tab="schedule">📅 Schedule</button>
+      <button class="tab-btn"        data-tab="foodlog" >🥗 Food Log</button>
+      <button class="tab-btn"        data-tab="summary" >📊 Summary</button>
+    </nav>
+  </header>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <main>
+
+    <!-- ── SCHEDULE ── -->
+    <section id="tab-schedule" class="panel active">
+
+      <div class="gym-card">
+        <div class="gym-card-label">🏋️ GYM TIME — TAP TO SWITCH</div>
+        <div class="gym-row">
+          <button class="gym-btn" data-pref="morning" id="gymMorning">
+            <div class="gym-name">🌅 Morning</div>
+            <div class="gym-sub">6:30 AM · Fasted workout</div>
+          </button>
+          <button class="gym-btn active" data-pref="evening" id="gymEvening">
+            <div class="gym-name">🌆 Evening</div>
+            <div class="gym-sub">7:00 PM · Post-work</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="hint">✏️ TAP PENCIL TO EDIT &nbsp;·&nbsp; ● CIRCLE TO MARK DONE</div>
+      <div id="schedList"></div>
+
+    </section>
+
+    <!-- ── FOOD LOG ── -->
+    <section id="tab-foodlog" class="panel">
+
+      <div class="slot-hdr">LOGGING FOOD FOR →</div>
+      <div class="slot-row" id="slotRow">
+        <button class="slot-btn" data-slot="breakfast">🌅 Breakfast<br><span>7:15 AM</span></button>
+        <button class="slot-btn" data-slot="fruit">🍎 Fruit<br><span>11:00 AM</span></button>
+        <button class="slot-btn active" data-slot="lunch">🍱 Lunch<br><span>1:00 PM</span></button>
+        <button class="slot-btn" data-slot="protein">💪 Protein<br><span>4:30 PM</span></button>
+        <button class="slot-btn" data-slot="dinner">🌙 Dinner<br><span>8:30 PM</span></button>
+        <button class="slot-btn" data-slot="other">🔄 Other<br><span>—</span></button>
+      </div>
+
+      <div id="todayLog"></div>
+
+      <div class="cat-row" id="catRow">
+        <button class="cat-btn active" data-cat="All">All</button>
+        <button class="cat-btn" data-cat="Breakfast">Breakfast</button>
+        <button class="cat-btn" data-cat="Main">Main</button>
+        <button class="cat-btn" data-cat="Protein">Protein</button>
+        <button class="cat-btn" data-cat="Fruit">Fruit</button>
+        <button class="cat-btn" data-cat="Snack">Snack</button>
+        <button class="cat-btn" data-cat="Drink">Drink</button>
+      </div>
+
+      <input id="foodSearch" class="food-search" type="text" placeholder="🔍  Search food...">
+      <div id="foodList" class="food-list"></div>
+
+      <div class="custom-wrap">
+        <button id="toggleCustom" class="custom-toggle">+ Add Custom Food</button>
+        <div id="customForm" class="custom-form hidden">
+          <div class="cf-lbl">CUSTOM FOOD ENTRY</div>
+          <input id="cfName" class="cf-inp" type="text" placeholder="Food name">
+          <div class="cf-grid">
+            <input id="cfCal" class="cf-inp" type="number" placeholder="Calories">
+            <input id="cfP"   class="cf-inp" type="number" placeholder="Protein g">
+            <input id="cfC"   class="cf-inp" type="number" placeholder="Carbs g">
+            <input id="cfF"   class="cf-inp" type="number" placeholder="Fat g">
+          </div>
+          <button id="addCustomBtn" class="cf-add-btn">Add to Log</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── SUMMARY ── -->
+    <section id="tab-summary" class="panel">
+
+      <div class="big-cal">
+        <div class="bc-lbl">CALORIES TODAY</div>
+        <div class="bc-num" id="bcNum">0</div>
+        <div class="bc-sub">of 1,800 kcal daily target</div>
+        <div class="bc-bar-bg"><div class="bc-bar-fill" id="bcBar"></div></div>
+        <div class="bc-rem" id="bcRem">1,800 kcal remaining</div>
+      </div>
+
+      <div class="macro-grid" id="macroGrid"></div>
+
+      <div class="completion-card">
+        <div class="cc-lbl">SCHEDULE COMPLETION</div>
+        <div class="cc-row">
+          <div class="cc-bar-bg"><div class="cc-bar-fill" id="ccBar"></div></div>
+          <span class="cc-ct" id="ccCt">0/13</span>
+        </div>
+        <div class="cc-msg" id="ccMsg">Start checking off items in Schedule.</div>
+      </div>
+
+      <div class="targets-card">
+        <div class="tc-lbl">NON-NEGOTIABLE TARGETS</div>
+        <div id="targetList"></div>
+        <div class="rules-box">
+          <div class="rules-lbl">🚫 ZERO TOLERANCE RULES</div>
+          <div class="rules-txt">No sugar &nbsp;·&nbsp; No fruit juice &nbsp;·&nbsp; No fried food &nbsp;·&nbsp; No white rice &nbsp;·&nbsp; No packaged biscuits &nbsp;·&nbsp; No skipping post-meal walk</div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+</div><!-- #app -->
+
+<!-- ══════════ EDIT MODAL ══════════ -->
+<div id="editModal" class="modal hidden">
+  <div class="modal-bg" id="modalBg"></div>
+  <div class="modal-card">
+    <div class="modal-title">✏️ Edit Schedule Slot</div>
+    <div class="modal-icon" id="modalIcon">🏷️</div>
+    <label class="m-lbl">Time</label>
+    <input type="time" id="eTime" class="m-inp time-inp">
+    <label class="m-lbl">Label</label>
+    <input type="text" id="eLabel" class="m-inp">
+    <label class="m-lbl">Notes / Detail</label>
+    <input type="text" id="eDetail" class="m-inp">
+    <div class="modal-btns">
+      <button id="eSave" class="m-save">✓ Save</button>
+      <button id="eCancel" class="m-cancel">✕ Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ NOTIF PROMPT ══════════ -->
+<div id="notifPrompt" class="notif-prompt hidden">
+  <div class="np-icon">🔔</div>
+  <div class="np-txt">Enable reminders to get phone alerts at every scheduled time — meals, meds, gym, and more.</div>
+  <button id="enableNotif" class="np-btn">Enable Reminders</button>
+  <button id="skipNotif" class="np-skip">Not now</button>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
